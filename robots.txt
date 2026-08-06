@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://contract-check-one.vercel.app/sitemap.xml

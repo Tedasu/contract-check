@@ -25,7 +25,8 @@
    'workBar', 'workFill', 'cancelBtn', 'resultTitle', 'resultMeta', 'restartBtn',
    'qualityWarning', 'typeSuggestion', 'countDanger', 'countMissing', 'countReview', 'countOk',
    'resultSummary', 'filterToggle', 'printBtn', 'checklist', 'rawText', 'rawCount',
-   'errorBox', 'themeToggle', 'themeIcon'].forEach(function (id) {
+   'errorBox', 'themeToggle', 'themeIcon',
+   'previewList', 'previewTypeName', 'previewCount'].forEach(function (id) {
     el[id] = document.getElementById(id);
   });
 
@@ -97,6 +98,64 @@
     }
     buildTabs(el.typeTabs);
     buildTabs(el.resultTypeTabs);
+    renderPreview();
+  }
+
+  /* ---------- 업로드 전 미리보기 (SEO/콘텐츠용 정적 목록) ---------- */
+
+  function renderPreview() {
+    var type = currentType();
+    var items = allItems(type);
+
+    el.previewTypeName.textContent = type.name;
+    el.previewCount.textContent = '(' + items.length + '개 항목)';
+    el.previewList.textContent = '';
+
+    type.sections.forEach(function (section) {
+      var wrapper = document.createElement('section');
+      wrapper.className = 'section';
+
+      var heading = document.createElement('h3');
+      heading.className = 'section-title';
+      heading.textContent = section.name;
+      wrapper.appendChild(heading);
+
+      var list = document.createElement('ul');
+      list.className = 'item-list';
+
+      section.items.forEach(function (item) {
+        var li = document.createElement('li');
+        li.className = 'item';
+
+        var head = document.createElement('div');
+        head.className = 'item-head';
+
+        var title = document.createElement('span');
+        title.className = 'item-title';
+        title.textContent = item.title;
+        head.appendChild(title);
+
+        var levelMeta = LEVEL_META[item.level];
+        if (levelMeta) {
+          var lv = document.createElement('span');
+          lv.className = 'badge ' + levelMeta.className;
+          lv.textContent = levelMeta.label;
+          head.appendChild(lv);
+        }
+
+        li.appendChild(head);
+
+        var desc = document.createElement('p');
+        desc.className = 'item-desc';
+        desc.textContent = item.desc;
+        li.appendChild(desc);
+
+        list.appendChild(li);
+      });
+
+      wrapper.appendChild(list);
+      el.previewList.appendChild(wrapper);
+    });
   }
 
   /* ---------- 파일 처리 ---------- */
@@ -454,6 +513,7 @@
 
     buildTabs(el.typeTabs);
     buildTabs(el.resultTypeTabs);
+    renderPreview();
     initDropzone();
 
     el.pickBtn.addEventListener('click', function () { el.fileInput.click(); });

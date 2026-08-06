@@ -135,7 +135,7 @@ settings.json에 hooks를 등록한다. "매번 X 할 때마다 Y 해줘" 같은
 - **개발 서버 실행:** `powershell -ExecutionPolicy Bypass -File serve.ps1` (포트 5173) 또는 `index.html`을 직접 더블클릭. `serve.ps1`은 .NET `HttpListener` 기반 자체 제작 서버로 Node·Python 등 외부 의존성이 없다.
 - **빌드:** 없음 (정적 파일 그대로 배포)
 - **테스트:** 자동화 테스트 없음. `file://`로 열면 CDN·워커가 막히므로 반드시 `serve.ps1`로 띄워서 확인할 것. 검증은 브라우저 콘솔에서 `Matcher.analyze(CONTRACT_TYPES[0], '샘플 계약서 텍스트')`를 호출해 판정 결과를 직접 확인하는 방식이 가장 빠르다.
-- **배포:** 아직 git 저장소·원격 저장소 미설정. 설정 후에는 `git push origin main` (자동 배포)
+- **배포:** GitHub(`Tedasu/contract-check`) → Vercel 자동 배포. `git push origin main` 하면 그대로 반영된다. 실제 배포 주소는 `https://contract-check-one.vercel.app`.
 
 ### 파일 구조
 
@@ -148,6 +148,9 @@ settings.json에 hooks를 등록한다. "매번 X 할 때마다 Y 해줘" 같은
 | [js/feedback.js](js/feedback.js) | 익명 문의함 (제출·조회, 비밀번호 해싱) |
 | [js/config.js](js/config.js) | Supabase URL / anon key — **직접 채워 넣어야 함** |
 | [docs/supabase-setup.sql](docs/supabase-setup.sql) | 문의함 테이블·보안정책·RPC 함수 |
+| [about.html](about.html) / [privacy.html](privacy.html) / [terms.html](terms.html) | 소개·개인정보처리방침·이용약관 (AdSense 필수 페이지) |
+| [robots.txt](robots.txt) / [sitemap.xml](sitemap.xml) | SEO — 도메인이 바뀌면 둘 다 갱신할 것 |
+| [docs/adsense-checklist.md](docs/adsense-checklist.md) | 애드센스 심사 준비 점검 결과와 남은 할 일 |
 
 - **주의사항:**
   - 이 로컬 환경에는 Node.js/npm/Python이 설치되어 있지 않다. Vite 등 빌드 도구가 필요한 제안을 하기 전에 설치 여부를 먼저 확인할 것.
@@ -161,3 +164,7 @@ settings.json에 hooks를 등록한다. "매번 X 할 때마다 Y 해줘" 같은
   - `config.js`의 anon key는 공개용이라 커밋해도 된다. **service_role 키는 절대 프론트엔드에 넣지 말 것.**
   - 사이트는 법률 자문이 아니라는 면책 문구가 상단에 고정되어 있다 — 문구 삭제 금지.
   - 백엔드가 필요해지는 시점과 확장 방법은 [docs/backend-setup.md](docs/backend-setup.md)에 정리되어 있다.
+  - **홈 화면의 "미리 보기" 섹션(`renderPreview()` in js/app.js)은 업로드 없이도 실제 콘텐츠를 보여주기 위한 것이다.** 검색엔진과 애드센스 심사가 첫 화면에서 실질적인 내용을 보게 하려는 의도적 설계이므로, 지우거나 업로드 후에만 보이게 바꾸지 말 것.
+  - `index.html`/`about.html`/`privacy.html`/`terms.html`은 페이지당 `<h1>`이 정확히 하나여야 한다. 헤더의 브랜드명은 `<p class="brand-title">`이지 `<h1>`이 아니다 — 새 페이지를 추가할 때 이 패턴을 유지할 것.
+  - `ads.txt`는 아직 만들지 않았다. 애드센스 게시자 ID를 실제로 받기 전까지는 만들지 말 것 — 가짜 값은 심사에 불리하다. 자세한 내용은 [docs/adsense-checklist.md](docs/adsense-checklist.md).
+  - 도메인이 바뀌면 `robots.txt`, `sitemap.xml`, 4개 HTML 파일의 `canonical`·OG URL에 박혀 있는 `contract-check-one.vercel.app`을 전부 새 도메인으로 바꿔야 한다.
