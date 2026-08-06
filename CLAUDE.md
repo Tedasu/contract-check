@@ -166,5 +166,5 @@ settings.json에 hooks를 등록한다. "매번 X 할 때마다 Y 해줘" 같은
   - 백엔드가 필요해지는 시점과 확장 방법은 [docs/backend-setup.md](docs/backend-setup.md)에 정리되어 있다.
   - **홈 화면의 "미리 보기" 섹션(`renderPreview()` in js/app.js)은 업로드 없이도 실제 콘텐츠를 보여주기 위한 것이다.** 검색엔진과 애드센스 심사가 첫 화면에서 실질적인 내용을 보게 하려는 의도적 설계이므로, 지우거나 업로드 후에만 보이게 바꾸지 말 것.
   - `index.html`/`about.html`/`privacy.html`/`terms.html`은 페이지당 `<h1>`이 정확히 하나여야 한다. 헤더의 브랜드명은 `<p class="brand-title">`이지 `<h1>`이 아니다 — 새 페이지를 추가할 때 이 패턴을 유지할 것.
-  - `ads.txt`는 아직 만들지 않았다. 애드센스 게시자 ID를 실제로 받기 전까지는 만들지 말 것 — 가짜 값은 심사에 불리하다. 자세한 내용은 [docs/adsense-checklist.md](docs/adsense-checklist.md).
+  - 애드센스 게시자 ID는 `ca-pub-8650152036785492`. `adsbygoogle.js` 로더가 4개 HTML 페이지 `<head>`에 있고 [ads.txt](ads.txt)도 이 ID로 채워져 있다. 새 페이지를 추가하면 같은 스크립트를 넣을 것. 자세한 내용은 [docs/adsense-checklist.md](docs/adsense-checklist.md).
   - 도메인이 바뀌면 `robots.txt`, `sitemap.xml`, 4개 HTML 파일의 `canonical`·OG URL에 박혀 있는 `contract-check-one.vercel.app`을 전부 새 도메인으로 바꿔야 한다.
