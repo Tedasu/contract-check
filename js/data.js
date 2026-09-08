@@ -20,7 +20,7 @@ const CONTRACT_TYPES = [
     name: '근로계약서',
     icon: '💼',
     guideUrl: '/guides/employment.html',
-    sourceLabel: '근로기준법·최저임금위원회 자료를 바탕으로 2026년 9월 9일 확인',
+    sourceLabel: '근로기준법·최저임금위원회 자료를 바탕으로 확인',
     summary: '근로기준법 제17조는 임금·근로시간·휴일·연차휴가 등을 반드시 서면으로 명시하고 교부하도록 정하고 있습니다.',
     sections: [
       {
