@@ -11,6 +11,31 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://contract-check-one.vercel.app/guides/employment.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://contract-check-one.vercel.app/guides/lease.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://contract-check-one.vercel.app/guides/freelance.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://contract-check-one.vercel.app/guides/common.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://contract-check-one.vercel.app/guides/methodology.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://contract-check-one.vercel.app/privacy.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

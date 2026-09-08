@@ -19,6 +19,8 @@ const CONTRACT_TYPES = [
     id: 'employment',
     name: '근로계약서',
     icon: '💼',
+    guideUrl: '/guides/employment.html',
+    sourceLabel: '근로기준법·최저임금위원회 자료를 바탕으로 2026년 9월 9일 확인',
     summary: '근로기준법 제17조는 임금·근로시간·휴일·연차휴가 등을 반드시 서면으로 명시하고 교부하도록 정하고 있습니다.',
     sections: [
       {
@@ -214,6 +216,8 @@ const CONTRACT_TYPES = [
     id: 'lease',
     name: '주택임대차계약서',
     icon: '🏠',
+    guideUrl: '/guides/lease.html',
+    sourceLabel: '주택임대차보호법·주택도시보증공사 자료를 바탕으로 2026년 9월 9일 확인',
     summary: '보증금을 지키는 핵심은 계약 전 권리관계 확인, 그리고 계약 후 전입신고·확정일자입니다. 이 항목들은 계약서 본문이 아니라 직접 확인해야 합니다.',
     sections: [
       {
@@ -388,6 +392,8 @@ const CONTRACT_TYPES = [
     id: 'freelance',
     name: '프리랜서·용역계약서',
     icon: '🧑‍💻',
+    guideUrl: '/guides/freelance.html',
+    sourceLabel: '하도급법·저작권법·한국저작권위원회 자료를 바탕으로 2026년 9월 9일 확인',
     summary: '분쟁의 대부분은 "어디까지가 계약 범위인가"와 "언제 돈을 받는가"에서 생깁니다.',
     sections: [
       {
@@ -570,6 +576,8 @@ const CONTRACT_TYPES = [
     id: 'general',
     name: '계약서 공통 기본',
     icon: '📄',
+    guideUrl: '/guides/common.html',
+    sourceLabel: '민법·공공기관 분쟁예방 자료를 바탕으로 2026년 9월 9일 확인',
     summary: '어떤 계약이든 서명 전에 확인해야 하는 공통 항목입니다. 유형을 모르겠으면 이걸로 먼저 돌려보세요.',
     sections: [
       {

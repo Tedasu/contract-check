@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동 판정 기준과 한계 — 계약사항 체크</title>
+  <meta name="description" content="계약사항 체크가 PDF와 사진을 처리하고 조항을 찾는 방식, 판정 상태의 의미, 공식 자료 확인과 콘텐츠 수정 원칙을 공개합니다.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-adsense-account" content="ca-pub-8650152036785492">
+  <link rel="canonical" href="https://contract-check-one.vercel.app/guides/methodology.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <link rel="stylesheet" href="/css/style.css">
+  <script>try{var t=localStorage.getItem('contract-check:theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="계약사항 체크">
+  <meta property="og:title" content="자동 판정 기준과 한계"><meta property="og:description" content="문서 처리, 문구 대조, 검토 자료와 오류 수정 원칙을 공개합니다.">
+  <meta property="og:url" content="https://contract-check-one.vercel.app/guides/methodology.html"><meta property="og:image" content="https://contract-check-one.vercel.app/og-image.svg">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header"><div class="wrap header-inner">
+    <a class="brand" href="/" style="text-decoration:none; color:inherit;"><span class="brand-mark" aria-hidden="true">📋</span><div><p class="brand-title">계약사항 체크</p><p class="brand-sub">계약서를 올리면 빠진 조항을 찾아드립니다</p></div></a>
+    <nav class="site-nav" aria-label="주요 메뉴"><a href="/">점검 도구</a><a href="/#guides">계약 가이드</a><a href="/guides/methodology.html" aria-current="page">판정 기준</a><a href="/about.html">소개</a></nav>
+  </div></header>
+
+  <main id="main" class="wrap doc-page article-page">
+    <a class="back-link" href="/">← 계약서 점검 도구</a>
+    <p class="article-kicker">투명성 보고서 · 판정과 콘텐츠 운영</p>
+    <h1>자동 판정이 하는 일과 하지 못하는 일</h1>
+    <p class="article-lede">
+      이 도구는 계약의 의미를 법률적으로 해석하는 인공지능이 아닙니다. 브라우저에서 읽어낸 문장과 사람이 미리 정한
+      단어 조합을 비교해 검토할 위치를 좁혀주는 검색 도구에 가깝습니다.
+    </p>
+    <div class="byline"><strong>작성·운영: 계약사항 체크 운영자</strong><span>법률전문가의 개별 검수 서비스가 아닙니다</span><span>기준 공개일: 2026년 9월 9일</span></div>
+
+    <div class="doc-body">
+      <h2>한눈에 보는 처리 흐름</h2>
+      <table class="content-table">
+        <thead><tr><th>단계</th><th>처리 내용</th><th>주요 한계</th></tr></thead>
+        <tbody>
+          <tr><td>1. 문서 읽기</td><td>텍스트가 포함된 PDF는 글자를 직접 추출합니다.</td><td>문자 배치가 복잡한 표나 보안 설정된 PDF는 순서가 어긋날 수 있습니다.</td></tr>
+          <tr><td>2. 사진 문자 인식</td><td>이미지는 밝기와 대비를 보정한 뒤 한국어·영어 OCR을 실행합니다.</td><td>흐림, 기울어짐, 도장·필기 겹침에 따라 오자가 생길 수 있습니다.</td></tr>
+          <tr><td>3. 문구 정규화</td><td>불필요한 공백과 일부 문장부호 차이를 줄여 비교합니다.</td><td>서로 다른 법적 의미의 문장이 비슷하게 보일 수 있습니다.</td></tr>
+          <tr><td>4. 조건 대조</td><td>한 단어가 아닌 관련 단어 묶음과 위험 표현을 찾습니다.</td><td>맥락, 예외, 부정 표현과 당사자의 실제 의도를 완전히 이해하지 못합니다.</td></tr>
+          <tr><td>5. 근거 제시</td><td>찾은 단어가 포함된 원문 문장을 결과에 함께 보여줍니다.</td><td>근거 문장이 있다는 사실만으로 조항이 적법하거나 유리하다는 뜻은 아닙니다.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>문서는 서버로 보내지 않습니다</h2>
+      <p>
+        PDF 추출과 이미지 문자 인식, 문구 대조는 이용자의 브라우저 안에서 실행됩니다. 업로드한 파일과 추출된 원문,
+        판정 결과를 운영자 서버로 전송하거나 데이터베이스에 저장하지 않습니다. 새로고침하거나 탭을 닫으면 메모리에서 사라집니다.
+        다만 PDF·OCR 프로그램과 언어 모델 파일을 내려받기 위해 브라우저가 외부 배포 서버에 접속할 수 있으며 자세한 내용은 개인정보처리방침에 공개합니다.
+      </p>
+
+      <h2>61개 점검 항목은 어떻게 나뉘나요</h2>
+      <p>
+        점검 목록은 근로계약서, 주택임대차계약서, 프리랜서·용역계약서와 계약서 공통 기본 항목으로 나뉩니다.
+        각 항목에는 ‘필수’, ‘권장’, ‘위험’ 수준과 자동으로 찾을 단어 조건 또는 ‘직접 확인’ 표시가 들어 있습니다.
+        법에서 모든 계약에 똑같이 요구하는 의무와 실무상 분쟁을 줄이기 위한 권장사항을 섞어 단정하지 않도록 수준을 구분합니다.
+      </p>
+      <div class="fact-grid">
+        <div class="fact-card"><strong>필수</strong><p>해당 계약 유형에서 법령상 명시 의무 등 공식 근거가 있는 핵심 항목입니다.</p></div>
+        <div class="fact-card"><strong>권장</strong><p>법적 의무라고 단정하지 않지만 범위와 절차를 분명히 하는 데 도움이 되는 항목입니다.</p></div>
+        <div class="fact-card"><strong>위험</strong><p>일방적으로 불리하거나 분쟁 가능성을 높일 수 있어 원문과 전문가 확인이 필요한 표현입니다.</p></div>
+        <div class="fact-card"><strong>직접 확인</strong><p>등기부, 세금, 현장 상태처럼 계약서 문장만으로 사실을 알 수 없는 항목입니다.</p></div>
+      </div>
+
+      <h2>결과 상태는 법적 결론이 아닙니다</h2>
+      <div class="editorial-box">
+        <h3>확인됨</h3><p>관련 단어 조합을 찾았다는 뜻입니다. 금액과 범위가 적절하거나 실제로 지켜진다는 뜻은 아닙니다.</p>
+        <h3>못 찾음</h3><p>현재 규칙이 관련 문구를 찾지 못했다는 뜻입니다. 조항이 없을 수도 있고 다른 표현이나 OCR 오류 때문에 놓쳤을 수도 있습니다.</p>
+        <h3>위험 발견</h3><p>주의 표현을 찾았다는 뜻입니다. 문장 전체와 예외 조건을 읽어 실제 위험인지 판단해야 합니다.</p>
+        <h3>직접 확인</h3><p>도구가 판단해서는 안 되는 사항입니다. 이용자가 별도 서류나 전문가를 통해 확인해야 합니다.</p>
+      </div>
+
+      <h2>현재 확인하지 못하는 것</h2>
+      <ul>
+        <li>계약 상대방이 실제 소유자·대표자·권한 있는 대리인인지</li>
+        <li>등기부, 체납세금, 다른 계약과 같은 외부 정보의 최신 상태</li>
+        <li>조항의 유효성, 판례 적용, 예상 손해액과 소송 결과</li>
+        <li>구두 약속, 실제 근무 운영, 집의 하자처럼 문서에 없는 사실</li>
+        <li>여러 조항을 함께 해석해야 드러나는 예외와 모순</li>
+      </ul>
+      <p>따라서 자동 결과가 모두 ‘확인됨’이어도 안전한 계약이라고 보증하지 않습니다. 반대로 ‘위험 발견’만으로 위법이나 무효라고 단정하지 않습니다.</p>
+
+      <h2>콘텐츠를 작성하고 수정하는 원칙</h2>
+      <div class="editorial-box">
+        <h3>공식 원문 우선</h3><p>국가법령정보센터, 중앙행정기관, 공공기관의 최신 공개자료를 우선 확인하고 가이드 끝에 연결합니다.</p>
+        <h3>의무와 권장사항 구분</h3><p>법적 의무라고 확인한 내용과 실무상 도움이 되는 제안을 같은 수준으로 표현하지 않습니다.</p>
+        <h3>전문가 검수 여부 공개</h3><p>현재 콘텐츠는 운영자가 공공자료를 바탕으로 정리했으며 법률전문가의 개별 검수를 받았다고 표시하지 않습니다. 향후 검수를 받으면 검수 범위와 날짜를 함께 공개합니다.</p>
+        <h3>날짜와 오류 정정</h3><p>시간에 따라 달라지는 금액·요건은 공식 페이지로 연결하고, 중요한 내용을 수정하면 페이지의 최종 확인일을 갱신합니다. 오류 제보는 익명 문의 기능으로 받습니다.</p>
+      </div>
+
+      <h2>판정 결과를 안전하게 사용하는 방법</h2>
+      <ol>
+        <li>먼저 OCR 원문이 계약서와 같은지 확인합니다.</li>
+        <li>‘못 찾음’과 ‘위험 발견’ 항목의 근거 문장을 앞뒤 문장까지 읽습니다.</li>
+        <li>자동 결과와 계약 유형별 가이드를 대조합니다.</li>
+        <li>등기부·세금·신분·현장처럼 직접 확인 항목을 별도로 처리합니다.</li>
+        <li>금액이 크거나 해석이 갈리는 조항은 변호사·공인중개사·공인노무사 등 해당 전문가에게 원문을 보여주고 검토받습니다.</li>
+      </ol>
+
+      <h2>공개된 기술과 주요 자료</h2>
+      <ul class="source-list">
+        <li><a href="https://github.com/Tedasu/contract-check" target="_blank" rel="noopener">GitHub — 계약사항 체크 소스 코드</a></li>
+        <li><a href="https://www.law.go.kr/" target="_blank" rel="noopener">국가법령정보센터</a></li>
+        <li><a href="https://www.moel.go.kr/" target="_blank" rel="noopener">고용노동부</a></li>
+        <li><a href="https://www.khug.or.kr/" target="_blank" rel="noopener">주택도시보증공사</a></li>
+        <li><a href="https://www.copyright.or.kr/" target="_blank" rel="noopener">한국저작권위원회</a></li>
+      </ul>
+
+      <h2>계약 유형별 기준 읽기</h2>
+      <div class="related-guides"><a href="/guides/employment.html">근로계약서</a><a href="/guides/lease.html">주택임대차계약서</a><a href="/guides/freelance.html">프리랜서·용역계약서</a><a href="/guides/common.html">공통 위험조항</a></div>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="wrap"><nav class="footer-nav" aria-label="사이트 정보"><a href="/#guides">계약 가이드</a><a href="/guides/methodology.html">판정 기준</a><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관</a></nav><p>© 계약사항 체크 · 판정 기준과 한계를 공개합니다.</p></div></footer>
+</body>
+</html>

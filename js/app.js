@@ -26,7 +26,7 @@
    'qualityWarning', 'typeSuggestion', 'countDanger', 'countMissing', 'countReview', 'countOk',
    'resultSummary', 'filterToggle', 'printBtn', 'checklist', 'rawText', 'rawCount',
    'errorBox', 'themeToggle', 'themeIcon',
-   'previewList', 'previewTypeName', 'previewCount'].forEach(function (id) {
+   'previewList', 'previewTypeName', 'previewCount', 'previewSource'].forEach(function (id) {
     el[id] = document.getElementById(id);
   });
 
@@ -109,6 +109,11 @@
 
     el.previewTypeName.textContent = type.name;
     el.previewCount.textContent = '(' + items.length + '개 항목)';
+    el.previewSource.textContent = '';
+    var sourceLink = document.createElement('a');
+    sourceLink.href = type.guideUrl;
+    sourceLink.textContent = type.sourceLabel + ' · 근거와 설명 보기 →';
+    el.previewSource.appendChild(sourceLink);
     el.previewList.textContent = '';
 
     type.sections.forEach(function (section) {
